@@ -3,8 +3,9 @@
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
 
-DLMS Smart Meter Data Analysis — Forecasting & Anomaly Detection for Power Distribution.
+> DLMS Smart Meter Data Analysis — Forecasting & Anomaly Detection for Power Distribution
 
 ## Overview
 
@@ -18,72 +19,41 @@ This project analyzes smart meter data from NES Technologies to detect abnormal 
 | R² | 0.9997 |
 | Anomalies Detected | 4,255 (2.4%) |
 | Health Score Range | 85.6 - 88.5 |
+| Root Cause | Industrial Activity (26.6%) |
+
+## Quick Start
+
+```bash
+# Clone
+git clone https://github.com/yashitarora/nes-smart-meter-analytics.git
+cd nes-smart-meter-analytics
+
+# Install
+pip install -r requirements.txt
+
+# Run
+jupyter notebook notebooks/NES_UC1_UC2_Integrated_final.ipynb
+```
 
 ## Repository Structure
 
 ```
 nes-smart-meter-analytics/
-├── notebooks/
-│   └── NES_UC1_UC2_Integrated_final.ipynb   # Main analysis notebook
-├── src/
-│   └── build_corporate_ppt.py                # PPT generator
-├── reports/
-│   ├── NES_UC1_UC2_ppt.pdf                  # Executive presentation
-│   └── NES_UC1_UC2_Integrated_final.html    # HTML notebook export
-├── docs/
-│   └── nes_logo_transparent.png              # Logo
-├── requirements.txt                          # Python dependencies
-├── LICENSE                                   # MIT License
-└── README.md                                 # This file
+├── .github/workflows/      # CI/CD
+├── data/                   # Data files (gitignored)
+├── docs/                   # Documentation assets
+├── notebooks/              # Jupyter notebooks
+│   └── NES_UC1_UC2_Integrated_final.ipynb
+├── reports/                # Generated reports
+│   ├── NES_UC1_UC2_ppt.pdf
+│   └── NES_UC1_UC2_Integrated_final.html
+├── src/                    # Source code
+│   └── build_corporate_ppt.py
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+└── requirements.txt
 ```
-
-## Setup
-
-### Prerequisites
-
-- Python 3.10 or higher
-- pip
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yashitarora/nes-smart-meter-analytics.git
-cd nes-smart-meter-analytics
-
-# Create virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Data
-
-The analysis uses two data files (not included in repository due to size):
-
-1. `DLMS_5_Meters_Apr2025_Mar2026.csv` — 175,200 interval readings from 5 DLMS meters
-2. `meter_event_5_Meters_DLMS.xlsx` — DLMS event logs (tamper, magnet, bypass events)
-
-Contact NES Technologies for data access.
-
-## Usage
-
-### Run the Notebook
-
-```bash
-jupyter notebook notebooks/NES_UC1_UC2_Integrated_final.ipynb
-```
-
-### Generate Presentation
-
-```bash
-cd src
-python build_corporate_ppt.py
-```
-
-Output: `reports/NES_UC1_UC2_ppt.pdf`
 
 ## Pipeline
 
@@ -96,11 +66,11 @@ Output: `reports/NES_UC1_UC2_ppt.pdf`
 | 5. Model Selection | LightGBM vs RF vs Linear Regression | LightGBM selected |
 | 6. Forecast Validation | Test on 14,400 readings | MAPE=0.72%, R²=0.9997 |
 | 7. Anomaly Detection | 6-algorithm ensemble voting | 4,255 anomalies (2.4%) |
-| 8. UC2 to UC1 Handoff | Select timestamps for investigation | MTR005 @ 2025-11-06 13:30 |
+| 8. UC2→UC1 Handoff | Select timestamps for investigation | MTR005 @ 2025-11-06 13:30 |
 | 9. UC1 Investigation | Electrical trend analysis | Normal industrial activity |
 | 10. Health Assessment | 6-component weighted score | 85.6 - 88.5 |
-| 11. Root Cause | Top 10 peak event analysis | Industrial Activity #1 (26.6%) |
-| 12. Recommendations | 4 prioritized actions | Deploy pilot, monitor MTR001 |
+| 11. Root Cause | Top 10 peak event analysis | Industrial Activity #1 |
+| 12. Recommendations | 4 prioritized actions | Deploy pilot |
 
 ## Key Findings
 
@@ -126,13 +96,21 @@ Output: `reports/NES_UC1_UC2_ppt.pdf`
 
 ## Technology Stack
 
-- **Python 3.10+**
-- **LightGBM** — Primary forecasting model
-- **scikit-learn** — Isolation Forest, LOF, OneClassSVM, DBSCAN, Random Forest
-- **pandas / numpy** — Data manipulation
-- **matplotlib / seaborn / plotly** — Visualization
-- **python-pptx** — Presentation generation
-- **Jupyter Notebook** — Analysis environment
+| Category | Tools |
+|----------|-------|
+| Language | Python 3.10+ |
+| ML | LightGBM, scikit-learn, XGBoost |
+| Data | pandas, numpy |
+| Visualization | matplotlib, seaborn, plotly |
+| Presentation | python-pptx |
+| Environment | Jupyter Notebook |
+
+## Reports
+
+| Report | Description |
+|--------|-------------|
+| [PDF Presentation](reports/NES_UC1_UC2_ppt.pdf) | 16-slide executive presentation |
+| [HTML Notebook](reports/NES_UC1_UC2_Integrated_final.html) | Full notebook with outputs |
 
 ## Author
 
@@ -141,7 +119,7 @@ Output: `reports/NES_UC1_UC2_ppt.pdf`
 
 ## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 

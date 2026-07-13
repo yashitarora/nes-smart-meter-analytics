@@ -1,7 +1,18 @@
-.DS_Store
+# Data files (too large for Git)
 *.csv
 *.xlsx
 charts/
+
+# OS files
+.DS_Store
 __pycache__/
 *.pyc
-NES_UC1_UC2_Integrated_final_files/
+
+# Notebook outputs (keep HTML for viewing)
+notebooks/*_files/
+
+# Old files
+NES_UC1_UC2_COMPLETE_REPORT.html
+PRESENTATION_EXTRACTION.md
+nes_logo.jpg
+nes_logo.svg

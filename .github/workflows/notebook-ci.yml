@@ -1,0 +1,43 @@
+name: Validate Notebook
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Validate notebook structure
+      run: |
+        python -c "
+        import json
+        with open('notebooks/NES_UC1_UC2_Integrated_final.ipynb') as f:
+            nb = json.load(f)
+        cells = nb['cells']
+        code_cells = [c for c in cells if c['cell_type'] == 'code']
+        print(f'Total cells: {len(cells)}')
+        print(f'Code cells: {len(code_cells)}')
+        assert len(cells) > 100, 'Notebook too short'
+        assert len(code_cells) > 50, 'Not enough code cells'
+        print('Notebook structure OK')
+        "
+        
+    - name: Check requirements.txt
+      run: |
+        pip install --dry-run -r requirements.txt

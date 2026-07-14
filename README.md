@@ -21,6 +21,40 @@ This project analyzes smart meter data from NES Technologies to detect abnormal 
 | Health Score Range | 85.6 - 88.5 |
 | Root Cause | Industrial Activity (26.6%) |
 
+## Key Results
+
+### Forecast Validation
+
+![Forecast](docs/images/forecast_validation.png)
+
+- LightGBM achieves MAPE=0.72% and R²=0.9997
+- Residuals centered at zero — no systematic bias
+- Per-meter accuracy: MTR005 (0.45%) to MTR001 (1.42%)
+
+### Anomaly Detection
+
+![Anomaly](docs/images/anomaly_detection_detail.png)
+
+- 4,255 anomalies detected (2.4% of readings)
+- 6-algorithm ensemble: Isolation Forest, LOF, OneClassSVM, DBSCAN, Z-score, IQR
+- MTR005 (industrial) has highest count: 1,284 (3.66%)
+
+### Root Cause Analysis
+
+![Root Cause](docs/images/root_cause_analysis.png)
+
+- Industrial Activity (26.6%) is #1 cause across top 10 peaks
+- Commercial Behaviour (22.2%) is #2
+- No theft or tampering detected — all DLMS events are firmware artifacts
+
+### Per-Meter Behaviour
+
+![Daily Profile](docs/images/per_meter_daily_profile.png)
+
+- Each meter has unique daily load profile
+- MTR001: Residential (peak=3.3x trough)
+- MTR005: Industrial (peak=1.8x, 24h operation)
+
 ## Quick Start
 
 ```bash
@@ -41,7 +75,8 @@ jupyter notebook notebooks/NES_UC1_UC2_Integrated_final.ipynb
 nes-smart-meter-analytics/
 ├── .github/workflows/      # CI/CD
 ├── data/                   # Data files (gitignored)
-├── docs/                   # Documentation assets
+├── docs/
+│   └── images/             # Chart screenshots
 ├── notebooks/              # Jupyter notebooks
 │   └── NES_UC1_UC2_Integrated_final.ipynb
 ├── reports/                # Generated reports
@@ -72,27 +107,12 @@ nes-smart-meter-analytics/
 | 11. Root Cause | Top 10 peak event analysis | Industrial Activity #1 |
 | 12. Recommendations | 4 prioritized actions | Deploy pilot |
 
-## Key Findings
+## Reports
 
-### Forecasting
-- **LightGBM** outperforms Linear Regression (61% better) and Random Forest (79% better)
-- Per-meter modelling required — each meter has unique daily profile
-- Night low-load causes highest % errors but absolute errors remain <0.2 kW
-
-### Anomaly Detection
-- 4,255 anomalies detected (2.4% of readings)
-- MTR005 (industrial) has highest count: 1,284 (3.66%)
-- 31.5% of anomalies occur during night hours
-
-### Root Cause Analysis
-- Industrial Activity (26.6%) is #1 cause across top 10 peaks
-- Commercial Behaviour (22.2%) is #2
-- No theft or tampering detected — all DLMS events are firmware artifacts
-
-### Health Assessment
-- MTR003 (88.5) and MTR004 (88.3) are HEALTHY
-- MTR001 (85.6) needs voltage monitoring
-- Tamper score (55) derived from 9 DLMS events per meter
+| Report | Description |
+|--------|-------------|
+| [PDF Presentation](reports/NES_UC1_UC2_ppt.pdf) | 16-slide executive presentation |
+| [HTML Notebook](reports/NES_UC1_UC2_Integrated_final.html) | Full notebook with outputs |
 
 ## Technology Stack
 
@@ -105,13 +125,6 @@ nes-smart-meter-analytics/
 | Presentation | python-pptx |
 | Environment | Jupyter Notebook |
 
-## Reports
-
-| Report | Description |
-|--------|-------------|
-| [PDF Presentation](reports/NES_UC1_UC2_ppt.pdf) | 16-slide executive presentation |
-| [HTML Notebook](reports/NES_UC1_UC2_Integrated_final.html) | Full notebook with outputs |
-
 ## Author
 
 **Yashit Arora**
@@ -120,9 +133,3 @@ nes-smart-meter-analytics/
 ## License
 
 This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
-
-## Acknowledgments
-
-- NES Technologies for DLMS meter data
-- Use Case 1 (UC1): Investigation & Root Cause
-- Use Case 2 (UC2): Behaviour Analysis & Anomaly Detection

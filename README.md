@@ -113,6 +113,8 @@ nes-smart-meter-analytics/
 |--------|-------------|
 | [PDF Presentation](reports/NES_UC1_UC2_ppt.pdf) | 16-slide executive presentation |
 | [HTML Notebook](reports/NES_UC1_UC2_Integrated_final.html) | Full notebook with outputs |
+| [Data Dictionary](docs/DATA_DICTIONARY.md) | Complete field descriptions |
+| [Changelog](CHANGELOG.md) | Version history |
 
 ## Technology Stack
 
